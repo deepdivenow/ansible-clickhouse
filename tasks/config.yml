@@ -1,0 +1,48 @@
+---
+
+- name: Creade dir for custom config
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - '/etc/clickhouse-server/users.d'
+    - '/etc/clickhouse-server/config.d'
+
+- name: Add custom config
+  template:
+    src: server.xml.j2
+    dest: '/etc/clickhouse-server/config.d/custom.xml'
+    mode: 0644
+  notify: restart clickhouse-server
+
+- name: Macros config
+  template:
+    src: macros.xml.j2
+    dest: '/etc/clickhouse-server/config.d/macros.xml'
+    mode: 0644
+  notify: restart clickhouse-server
+
+- name: Sharding config
+  template:
+    src: clickhouse_remote_servers.xml.j2
+    dest: '/etc/clickhouse-server/config.d/clickhouse_remote_servers.xml'
+    mode: 0644
+  notify: restart clickhouse-server
+  when: clickhouse_shards is defined
+
+- name: Zookeeper config
+  template:
+    src: zookeeper-servers.xml.j2
+    dest: '/etc/clickhouse-server/config.d/zookeeper-servers.xml'
+    mode: 0644
+  notify: restart clickhouse-server
+  when: zookeeper_hosts is defined
+
+- name: Users config
+  template:
+    src: user.xml.j2
+    dest: '/etc/clickhouse-server/users.d/users.xml'
+    mode: 0644
+  notify: restart clickhouse-server
+  when: clickhouse_users is defined

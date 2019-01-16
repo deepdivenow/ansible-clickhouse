@@ -1,0 +1,18 @@
+---
+# tasks file for clickhouse
+
+- import_tasks: install.yml
+  tags: [clickhouse-install]
+- import_tasks: config.yml
+  tags: [clickhouse-config]
+- import_tasks: service.yml
+  tags: [clickhouse-service]
+#- import_tasks: tasks_on_db.yml
+
+
+
+
+
+
+
+

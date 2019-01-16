@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<yandex>
+  <remote_servers >
+{% for slice in clickhouse_shards %}
+     <{{ slice }}>
+{% for shard in clickhouse_shards[slice] %}
+        <shard>
+{% for replica in shard.replicas %}
+           <replica>
+              <host>{{ replica }}</host>
+              <port>9000</port>
+           </replica>
+{% endfor %}
+        </shard> 
+{% endfor %}
+     </{{ slice }}>
+{% endfor %}
+  </remote_servers>
+</yandex>
+

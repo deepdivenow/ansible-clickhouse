@@ -1,0 +1,9 @@
+---
+
+- name: Add clickhouse yum repo
+  shell: curl -s https://packagecloud.io/install/repositories/altinity/clickhouse/script.rpm.sh | sudo bash
+
+- name: Install clickhouse-server and client
+  yum:
+    name: clickhouse-server, clickhouse-client, clickhouse-server-common, clickhouse-compressor
+    state: present

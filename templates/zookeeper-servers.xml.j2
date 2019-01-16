@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<yandex>
+<zookeeper>
+{% for it in zookeeper_hosts %}
+    <node index="{{ it.id }}">
+        <host>{{ it.host }}</host>
+        <port>{{ zookeeper_client_port }}</port>
+    </node>
+{% endfor %}
+</zookeeper>
+</yandex>

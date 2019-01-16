@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<yandex>
+    <users incl="users">
+{% for user in clickhouse_users %}
+        <{{ user.name }}>
+            <password>{{ user.pass }}</password>
+            <networks incl="networks" replace="replace">
+                <ip>::/0</ip>
+            </networks>
+            <profile>default</profile>
+            <quota>default</quota>
+            <allow_databases>
+{% for db in user.dbs  %}
+                <database>{{ db }}</database>
+{% endfor %}
+            </allow_databases>
+        </{{ user.name }}>
+{% endfor %}
+    </users>
+</yandex>

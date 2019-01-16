@@ -1,0 +1,10 @@
+---
+# defaults file for clickhouse
+
+#clickhouse_users:
+#  - name: hello
+#    pass: hello
+#    dbs: [default]
+
+
+clickhouse_default_cluster: default

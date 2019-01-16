@@ -1,0 +1,11 @@
+---
+
+- name: Enable service autostart
+  service:
+    name: clickhouse-server
+    enabled: yes
+
+- name: Run clickhouse-server
+  service:
+    name: clickhouse-server
+    state: restarted
