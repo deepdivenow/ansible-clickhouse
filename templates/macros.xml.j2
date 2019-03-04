@@ -3,5 +3,12 @@
   <macros>
     <replica>{{ inventory_hostname_short }}</replica>
     <default_cluster>{{ clickhouse_default_cluster }}</default_cluster>
+{% for slice in clickhouse_shards %}
+{% for shard in clickhouse_shards[slice] %}
+{% if inventory_hostname_short in shard.replicas or inventory_hostname in shard.replicas %}
+    <{{ slice }}_shard>{{ shard.name }}</{{ slice }}_shard>
+{% endif %}
+{% endfor %}
+{% endfor %}
   </macros>
 </yandex>
